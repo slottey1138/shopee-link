@@ -41,4 +41,14 @@ export default class Alert {
       });
     }
   }
+
+  static confirm(message) {
+    if (message != undefined) {
+      return Swal.fire({
+        text: message,
+        icon: "question",
+        showCancelButton: true,
+      });
+    }
+  }
 }

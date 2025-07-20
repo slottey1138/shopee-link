@@ -2,46 +2,38 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import TextField from "@/components/ui/TextField";
 import Button from "@/components/ui/Button";
 import { CiLogin } from "react-icons/ci";
 import { useForm } from "react-hook-form";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import classNames from "classnames";
+import { useAuth } from "@/context/AuthContext";
+import Alert from "@/utils/alerts.utils";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const { login } = useAuth();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  cx;
   const [typePassword, setTypePassword] = useState("password");
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (params) => {
     try {
-      const payload = {
-        username: data.username,
-        phone: data.phone,
-        password: data.password,
-      };
-
-      let response = await fetch("/api/users/login", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
-
-      let dataResponse = await response.json();
-
-      console.log("dataResponse", dataResponse);
+      login(params);
     } catch (error) {
       Alert.error(error.message);
     }
   };
 
   return (
-    <div className="w-[500px] bg-black border border-gray-200 absolute -translate-y-1/2 -translate-x-1/2  top-1/2 left-1/2 px-8 py-18 rounded-lg">
+    <div className="w-[500px] bg-white border border-gray-200 absolute -translate-y-1/2 -translate-x-1/2  top-1/2 left-1/2 px-8 py-18 rounded-lg">
       <div className="mb-4">
         <h1 className="text-3xl">เข้าสู่ระบบ</h1>
       </div>
@@ -95,7 +87,7 @@ const LoginPage = () => {
             type="button"
             className="w-8 h-8 absolute right-2 top-8 justify-center flex items-center cursor-pointer focus:outline-none"
             onClick={() => (typePassword === "text" ? setTypePassword("password") : setTypePassword("text"))}>
-            {typePassword === "password" ? <FaRegEyeSlash className="text-2xl text-white" /> : <FaRegEye className="text-2xl text-white" />}
+            {typePassword === "password" ? <FaRegEyeSlash className="text-2xl " /> : <FaRegEye className="text-2xl t" />}
           </button>
           {errors.password ? <small className="text-error">{errors.password.message}</small> : <></>}
         </div>
@@ -105,7 +97,7 @@ const LoginPage = () => {
           </Link>
         </div>
         <div>
-          <Button type="submit">
+          <Button type="submit" className="w-full flex justify-center items-center">
             <span className="mr-2">เข้าสู่ระบบ</span>
             <span>
               <CiLogin className="w-6 h-6" />
