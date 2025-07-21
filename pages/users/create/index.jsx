@@ -8,7 +8,7 @@ import TextField from "@/components/ui/TextField";
 import Button from "@/components/ui/Button";
 import { LiaTimesSolid } from "react-icons/lia";
 import { IoSaveOutline } from "react-icons/io5";
-import axios from "axios";
+import axios from "@/utils/api.utils";
 import Alert from "@/utils/alerts.utils";
 import { useForm } from "react-hook-form";
 import Unauthorize from "@/components/Unauthorized";

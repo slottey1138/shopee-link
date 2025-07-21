@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import withProtectedUser from "@/hoc/withProtectedUser";
@@ -8,7 +8,7 @@ import { FiPlus } from "react-icons/fi";
 import classNames from "classnames";
 import Alert from "@/utils/alerts.utils";
 import dayjs from "dayjs";
-import axios from "axios";
+import axios from "@/utils/api.utils";
 import TextField from "@/components/ui/TextField";
 import Unauthorize from "@/components/Unauthorized";
 import Button from "@/components/ui/Button";
@@ -27,8 +27,6 @@ const UserPage = () => {
   const [keyword, setKeyword] = useState("");
 
   const totalPages = Math.ceil(users?.filter?.length / ITEMS_PER_PAGE);
-  // const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  // const currentItems = users?.filter?.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const handleNext = () => {
     if (currentPage < totalPages) {

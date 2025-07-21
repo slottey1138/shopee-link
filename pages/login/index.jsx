@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import TextField from "@/components/ui/TextField";
 import Button from "@/components/ui/Button";
 import { CiLogin } from "react-icons/ci";
@@ -13,7 +12,6 @@ import { useAuth } from "@/context/AuthContext";
 import Alert from "@/utils/alerts.utils";
 
 const LoginPage = () => {
-  const router = useRouter();
   const { login } = useAuth();
 
   const {

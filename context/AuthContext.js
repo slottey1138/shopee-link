@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import axios from "@/utils/api.utils";
 import Alert from "@/utils/alerts.utils";
 
 const AuthContext = createContext();
@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }) => {
         Alert.error("Error");
       }
     } catch (error) {
-      console.log("error", error.message);
       let response = error.response;
       const { message } = response.data;
       Alert.error(message);
@@ -37,26 +36,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     router.push("/login");
   };
-
-  // const checkAuth = async () => {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) return;
-
-  //   const res = await fetch("https://your-api.com/me", {
-  //     headers: { Authorization: `Bearer ${token}` },
-  //   });
-
-  //   if (res.ok) {
-  //     const data = await res.json();
-  //     setUser(data.user);
-  //   } else {
-  //     logout();
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   checkAuth();
-  // }, []);
 
   return <AuthContext.Provider value={{ user, setUser, login, logout }}>{children}</AuthContext.Provider>;
 };

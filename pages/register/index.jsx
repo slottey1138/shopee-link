@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import Alert from "@/utils/alerts.utils";
-import axios from "axios";
+import axios from "@/utils/api.utils";
 
 const RegisterPage = () => {
   const router = useRouter();
