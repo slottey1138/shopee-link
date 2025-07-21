@@ -5,15 +5,7 @@ import Layout from "@/components/includes/Layout";
 function HomePage() {
   const { user, logout } = useAuth();
 
-  return (
-    <Layout>
-      dsad
-      <h1 className="text-primary">Welcome {user?.name}</h1>
-      <button className="text-primary" onClick={logout}>
-        Logout
-      </button>
-    </Layout>
-  );
+  return <Layout></Layout>;
 }
 
 export default withProtectedUser(HomePage);

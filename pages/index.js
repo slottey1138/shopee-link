@@ -8,7 +8,7 @@ const Home = () => {
     router.push("/login");
   }, [router]);
 
-  return <div>Home</div>;
+  return <div></div>;
 };
 
 export default Home;
