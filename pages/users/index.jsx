@@ -157,7 +157,7 @@ const UserPage = () => {
               <th className="w-[100px]">ลำดับ</th>
               <th className="text-left">ชื่อผู้ใข้งาน</th>
               <th className="text-left">เบอร์โทรศัพท์</th>
-              <th className="text-left">เครดติ</th>
+              <th className="text-left">เครดิต</th>
               <th className="w-[100px] text-center">สถานะ</th>
               <th className=" text-center">สร้างเมื่อ</th>
               <th className=" text-center">แก้ไขล่าสุด</th>
