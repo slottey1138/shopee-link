@@ -5,8 +5,8 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  // const token = process.env.CRIENT_SECRET;
-  const token = "K6oCy3IMmqgdsmJF7cWOyHFnI1pL14rA";
+  const token = process.env.CRIENT_SECRET;
+  // const token = "K6oCy3IMmqgdsmJF7cWOyHFnI1pL14rA";
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
