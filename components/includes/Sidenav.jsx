@@ -13,7 +13,7 @@ const Sidenav = () => {
 
   const menus = [
     {
-      label: "Users",
+      label: "ผู้ใช้งาน",
       href: "/users",
       icon: <GoDot className="w-4 h-4" />,
       access: ["ADMIN"],

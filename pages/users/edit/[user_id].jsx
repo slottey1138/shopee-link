@@ -89,7 +89,7 @@ const EditUser = () => {
     <Layout>
       <div className="bg-white">
         <div className="h-18 w-full bg-white px-6 pt-5 border-b border-gray-100">
-          <h1 className="text-2xl font-medium">Edit user</h1>
+          <h1 className="text-2xl font-medium">แก้ไขผู้ใช้งาน</h1>
         </div>
         {loading ? (
           <>Loading...</>
@@ -97,15 +97,15 @@ const EditUser = () => {
           <form onSubmit={handleSubmit(handleUpdate)}>
             <div className="w-1/2 mx-auto py-4">
               <div className="mb-4">
-                <label>Username</label>
+                <label>ชื่อผู้ใช้</label>
                 <TextField disabled defaultValue={data?.username} {...register("username")} />
               </div>
               <div className="mb-4">
-                <label>Phone</label>
+                <label>เบอร์โทรศัพท์</label>
                 <TextField disabled defaultValue={data?.phone} {...register("phone")} />
               </div>
               <div className="mb-4">
-                <label>Credit</label>
+                <label>เครดิต</label>
                 <TextField
                   error={errors.credit}
                   {...register("credit", {
@@ -124,7 +124,7 @@ const EditUser = () => {
                 {errors.credit ? <small className="text-error">{errors.credit.message}</small> : <></>}
               </div>
               <div className="mb-8">
-                <label>Status</label>
+                <label>สถานะ</label>
                 <div className="flex gap-10 mt-2">
                   <div className="inline-flex items-center">
                     <label className="relative flex items-center cursor-pointer" htmlFor="active">
@@ -139,7 +139,7 @@ const EditUser = () => {
                       <span className="absolute bg-primary w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
                     </label>
                     <label className="ml-2 text-slate-600 cursor-pointer text-sm" htmlFor="active">
-                      Active
+                      ปกติ
                     </label>
                   </div>
                   <div className="inline-flex items-center">
@@ -155,7 +155,7 @@ const EditUser = () => {
                       <span className="absolute bg-primary w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
                     </label>
                     <label className="ml-2 text-slate-600 cursor-pointer text-sm" htmlFor="pending">
-                      Pending
+                      รอตรวจสอบ
                     </label>
                   </div>
                   <div className="inline-flex items-center">
@@ -171,18 +171,18 @@ const EditUser = () => {
                       <span className="absolute bg-primary w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
                     </label>
                     <label className="ml-2 text-slate-600 cursor-pointer text-sm" htmlFor="reject">
-                      Reject
+                      ปฏิเสธ
                     </label>
                   </div>
                 </div>
               </div>
               <div className="flex justify-end">
                 <Button className="w-1/4 flex justify-center items-center mr-2" color="secondary" onClick={() => router.push("/users")} type="button">
-                  <span className="mr-2">Cancel</span>
+                  <span className="mr-2">ยกเลิก</span>
                   <LiaTimesSolid />
                 </Button>
                 <Button className="w-1/4 flex justify-center items-center mr-2" type="submit" disabled={sending}>
-                  <span className="mr-2">Save</span>
+                  <span className="mr-2">บันทึก</span>
                   <IoSaveOutline className="w-5 h-5" />
                 </Button>
               </div>

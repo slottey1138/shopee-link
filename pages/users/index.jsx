@@ -126,11 +126,11 @@ const UserPage = () => {
 
   const generateStatus = (status) => {
     if (status === 1) {
-      return <div className="text-xs text-green-500 bg-green-500/30 block py-1 font-bold text-center rounded">Active</div>;
+      return <div className="text-xs text-green-500 bg-green-500/30 block py-1 font-bold text-center rounded">ปกติ</div>;
     } else if (status === 2) {
-      return <div className="text-xs text-amber-500 bg-amber-400/30 block py-1 font-bold text-center rounded">Pending</div>;
+      return <div className="text-xs text-amber-500 bg-amber-400/30 block py-1 font-bold text-center rounded">รอตรวจสอบ</div>;
     } else if (status === 3) {
-      return <div className="text-xs text-red-500 bg-red-400/30 block py-1 font-bold text-center rounded">Reject</div>;
+      return <div className="text-xs text-red-500 bg-red-400/30 block py-1 font-bold text-center rounded">ปฏิเสธ</div>;
     }
   };
 
@@ -146,7 +146,7 @@ const UserPage = () => {
     <Layout>
       <div className="bg-white border border-gray-100">
         <div className="h-18 w-full bg-white px-6 pt-5 border-b border-gray-100">
-          <h1 className="text-2xl font-medium">User</h1>
+          <h1 className="text-2xl font-medium">ผู้ใข้งาน</h1>
         </div>
         <div className="w-1/3 p-4">
           <TextField className="w-1/3" placeholder="Search..." onChange={(e) => setKeyword(e.target.value)} />
@@ -154,14 +154,14 @@ const UserPage = () => {
         <table style={{ width: "100%", minWidth: "700px" }} className="bg-white">
           <thead className="w-full h-14 bg-primary text-white">
             <tr>
-              <th className="w-[100px]">No.</th>
-              <th className="text-left">Username</th>
-              <th className="text-left">Phone</th>
-              <th className="text-left">Credit</th>
-              <th className="w-[100px] text-center">Status</th>
-              <th className=" text-center">Created</th>
-              <th className=" text-center">Updated</th>
-              <th className="text-center">Actions</th>
+              <th className="w-[100px]">ลำดับ</th>
+              <th className="text-left">ชื่อผู้ใข้งาน</th>
+              <th className="text-left">เบอร์โทรศัพท์</th>
+              <th className="text-left">เครดติ</th>
+              <th className="w-[100px] text-center">สถานะ</th>
+              <th className=" text-center">สร้างเมื่อ</th>
+              <th className=" text-center">แก้ไขล่าสุด</th>
+              <th className="text-center"></th>
             </tr>
           </thead>
           <tbody>
@@ -194,7 +194,7 @@ const UserPage = () => {
             ) : (
               <tr>
                 <td colSpan={8} className="text-center">
-                  No data.
+                  ไม่มีข้อมูล
                 </td>
               </tr>
             )}
