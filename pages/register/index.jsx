@@ -34,23 +34,20 @@ const RegisterPage = () => {
         updated_by: 1,
       };
 
-      const response = await fetch("/api/users/register", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, payload);
 
       if (response.status === 200) {
-        const dataResponse = await response.json();
+        const { message } = response.data;
 
-        Alert.success(dataResponse.message).then(() => router.push("/login"));
+        Alert.success(message).then(() => router.push("/login"));
       } else {
-        const dataResponse = await response.json();
-        Alert.error(dataResponse.message);
+        const { message } = response.data;
+        Alert.error(message);
       }
-
-      // console.log("dataResponse", dataResponse);
     } catch (error) {
-      Alert.error(error.message);
+      let response = error.response;
+      const { message } = response.data;
+      Alert.error(message);
     }
   };
 
