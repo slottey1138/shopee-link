@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import TextField from "@/components/ui/TextField";
@@ -50,6 +50,13 @@ const RegisterPage = () => {
       Alert.error(message);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="w-[500px] bg-white border border-gray-200 absolute -translate-y-1/2 -translate-x-1/2  top-1/2 left-1/2 px-8 py-18 rounded-lg">

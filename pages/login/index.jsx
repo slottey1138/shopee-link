@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import TextField from "@/components/ui/TextField";
 import Button from "@/components/ui/Button";
 import { CiLogin } from "react-icons/ci";
@@ -13,6 +14,7 @@ import Alert from "@/utils/alerts.utils";
 
 const LoginPage = () => {
   const { login } = useAuth();
+  const router = useRouter();
 
   const {
     register,
@@ -29,6 +31,13 @@ const LoginPage = () => {
       Alert.error(error.message);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="w-[500px] bg-white border border-gray-200 absolute -translate-y-1/2 -translate-x-1/2  top-1/2 left-1/2 px-8 py-18 rounded-lg">

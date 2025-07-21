@@ -13,7 +13,7 @@ const withProtectedUser = (WrappedComponent) => {
         try {
           const token = localStorage.getItem("token");
           if (token != null && token.length > 0) {
-            const secretKey = Buffer.from("qIb5O6t1GwA4IgcYMpMz", "utf8");
+            const secretKey = Buffer.from(process.env.NEXT_PUBLIC_JWT_SECRET, "utf8");
             const { payload } = await jwtVerify(token, secretKey);
 
             if (payload.exp && Date.now() >= payload.exp * 1000) {

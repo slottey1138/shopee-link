@@ -64,7 +64,7 @@ const Sidenav = () => {
     <div className="w-[300px] h-[100vh] pt-16 fixed top-0 left-0 z-20 shadow-md bg-white">
       <ul className="px-2">
         {menus.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             {item.access.includes(user?.role) ? (
               <Link href={item.href} key={index}>
                 <li
@@ -79,7 +79,7 @@ const Sidenav = () => {
             ) : (
               <></>
             )}
-          </>
+          </React.Fragment>
         ))}
       </ul>
     </div>
