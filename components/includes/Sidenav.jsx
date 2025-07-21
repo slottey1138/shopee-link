@@ -9,56 +9,54 @@ const Sidenav = () => {
   const { user } = useAuth();
   const pathname = usePathname();
 
-  console.log("pathname", pathname);
-
   const menus = [
     {
       label: "ผู้ใช้งาน",
       href: "/users",
       icon: <GoDot className="w-4 h-4" />,
-      access: ["ADMIN"],
+      access: ["SUPERADMIN", "ADMIN"],
     },
     {
       label: "ดึงสินค้าที่คุณอาจชอบ",
       href: "/like_product",
       icon: <GoDot />,
-      access: ["ADMIN", "USER"],
+      access: ["SUPERADMIN", "ADMIN", "USER"],
     },
     {
       label: "ดึงสินค้าแนะนำประจำวัน",
       href: "/daily_product",
       icon: <GoDot />,
-      access: ["ADMIN", "USER"],
+      access: ["SUPERADMIN", "ADMIN", "USER"],
     },
     {
       label: "แปลงลิงค์",
       href: "/convert_link",
       icon: <GoDot />,
-      access: ["ADMIN", "USER"],
+      access: ["SUPERADMIN", "ADMIN", "USER"],
     },
     {
       label: "ค้นหา URL จากรหัส",
       href: "/search_url",
       icon: <GoDot />,
-      access: ["ADMIN", "USER"],
+      access: ["SUPERADMIN", "ADMIN", "USER"],
     },
     {
       label: "ดึงรหัสสินค้า",
       href: "/get_product_code",
       icon: <GoDot />,
-      access: ["ADMIN", "USER"],
+      access: ["SUPERADMIN", "ADMIN", "USER"],
     },
     {
       label: "ดึงสินค้า FLASHSALE",
       href: "/flashsale_product",
       icon: <GoDot />,
-      access: ["ADMIN", "USER"],
+      access: ["SUPERADMIN", "ADMIN", "USER"],
     },
     {
       label: "ดึงสินค้าตามใจ",
       href: "/pull_product",
       icon: <GoDot />,
-      access: ["ADMIN", "USER"],
+      access: ["SUPERADMIN", "ADMIN", "USER"],
     },
   ];
 

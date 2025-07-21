@@ -8,12 +8,13 @@ import TextField from "@/components/ui/TextField";
 import Button from "@/components/ui/Button";
 import { LiaTimesSolid } from "react-icons/lia";
 import { IoSaveOutline } from "react-icons/io5";
-import Link from "next/link";
 import axios from "axios";
 import Alert from "@/utils/alerts.utils";
 import { useForm } from "react-hook-form";
 import Unauthorize from "@/components/Unauthorized";
 import withProtectedUser from "@/hoc/withProtectedUser";
+import classNames from "classnames";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 
 const EditUser = () => {
   const { user } = useAuth();
@@ -24,6 +25,7 @@ const EditUser = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -34,10 +36,12 @@ const EditUser = () => {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [data, setData] = useState(null);
+  const [typePassword, setTypePassword] = useState("password");
+  const [typeConfirmPassword, setTypeConfirmPassword] = useState("password");
 
   const fetchUser = async (userId) => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/edit/${userId}`);
 
       if (response.status === 200) {
         setData(response.data);
@@ -63,7 +67,10 @@ const EditUser = () => {
         phone: params.phone,
         credit: params.credit,
         status: params.status,
+        role: params.role,
+        password: params.password,
       };
+      console.log("patload", payload);
       const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}`, payload);
 
       if (response.status === 200) {
@@ -71,13 +78,14 @@ const EditUser = () => {
         Alert.success(message).then(() => router.push("/users"));
       }
     } catch (error) {
-      Alert.error(error.message);
+      const { data } = error.response;
+      Alert.error(data.message);
     } finally {
       setSending(false);
     }
   };
 
-  if (user?.role !== "ADMIN") {
+  if (!["SUPERADMIN", "ADMIN"].includes(user?.role)) {
     return (
       <Layout>
         <Unauthorize />
@@ -111,17 +119,74 @@ const EditUser = () => {
                   {...register("credit", {
                     required: {
                       value: true,
-                      message: "This field is required",
+                      message: "กรุณาระบุข้อมูล",
                     },
                     pattern: {
                       value: /^[0-9]+$/,
-                      message: "Incorrect data format",
+                      message: "รูปแบบข้อมูลไม่ถูกต้อง",
                     },
                   })}
                   maxLength="5"
                   defaultValue={data?.credit}
                 />
                 {errors.credit ? <small className="text-error">{errors.credit.message}</small> : <></>}
+              </div>
+              <div className="mb-4">
+                <label>ประเภทผู้ใช้งาน</label>
+                <select
+                  className="border w-full h-12  rounded-md focus:outline-none px-2 transition duration-300 disabled:bg-gray-100 border-gray-300 focus:border-primary"
+                  {...register("role", {
+                    required: {
+                      value: true,
+                      message: "กรุณาระบุข้อมูล",
+                    },
+                  })}
+                  defaultValue={data?.role}>
+                  <option value="">Select</option>
+                  {user?.role === "SUPERADMIN" ? <option value="ADMIN">ADMIN</option> : <></>}
+                  <option value="USER">USER</option>
+                </select>
+              </div>
+              <div className={classNames("relative", errors.password ? "mb-1" : "mb-6")}>
+                <label>รหัสผ่าน</label>
+                <TextField
+                  type={typePassword}
+                  error={errors.password}
+                  {...register("password", {
+                    minLength: {
+                      value: 8,
+                      message: "ระบุข้อมูลอย่างน้อย 8 ตัวอักษร",
+                    },
+                    maxLength: {
+                      value: 30,
+                      message: "ข้อมูลต้องไม่เกิน 30 ตัวอักษร",
+                    },
+                  })}
+                />
+                <button
+                  type="button"
+                  className="w-8 h-8 absolute right-2 top-8 justify-center flex items-center cursor-pointer focus:outline-none"
+                  onClick={() => (typePassword === "text" ? setTypePassword("password") : setTypePassword("text"))}>
+                  {typePassword === "password" ? <FaRegEyeSlash className="text-2xl " /> : <FaRegEye className="text-2xl " />}
+                </button>
+                {errors.password ? <small className="text-error">{errors.password.message}</small> : <></>}
+              </div>
+              <div className={classNames("relative", errors.confirmPassword ? "mb-1" : "mb-6")}>
+                <label>ยืนยันหัสผ่าน</label>
+                <TextField
+                  type={typeConfirmPassword}
+                  error={errors.confirmPassword}
+                  {...register("confirmPassword", {
+                    validate: (value) => value === watch("password") || "รหัสผ่านไม่ตรงกัน",
+                  })}
+                />
+                <button
+                  type="button"
+                  className="w-8 h-8 absolute right-2 top-8 justify-center flex items-center cursor-pointer focus:outline-none"
+                  onClick={() => (typeConfirmPassword === "text" ? setTypeConfirmPassword("password") : setTypeConfirmPassword("text"))}>
+                  {typeConfirmPassword === "password" ? <FaRegEyeSlash className="text-2xl " /> : <FaRegEye className="text-2xl" />}
+                </button>
+                {errors.confirmPassword ? <small className="text-error">{errors.confirmPassword.message}</small> : <></>}
               </div>
               <div className="mb-8">
                 <label>สถานะ</label>

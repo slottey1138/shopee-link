@@ -34,7 +34,7 @@ const RegisterPage = () => {
         updated_by: 1,
       };
 
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, payload);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/register`, payload);
 
       if (response.status === 200) {
         const { message } = response.data;

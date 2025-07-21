@@ -4,12 +4,14 @@ import { useAuth } from "@/context/AuthContext";
 import withProtectedUser from "@/hoc/withProtectedUser";
 import Layout from "@/components/includes/Layout";
 import { FaAnglesRight, FaAnglesLeft, FaAngleRight, FaAngleLeft, FaPencil, FaTrash } from "react-icons/fa6";
+import { FiPlus } from "react-icons/fi";
 import classNames from "classnames";
 import Alert from "@/utils/alerts.utils";
 import dayjs from "dayjs";
 import axios from "axios";
 import TextField from "@/components/ui/TextField";
 import Unauthorize from "@/components/Unauthorized";
+import Button from "@/components/ui/Button";
 
 const ITEMS_PER_PAGE = 10;
 const MAX_VISIBLE_PAGES = 7;
@@ -80,7 +82,7 @@ const UserPage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.user_id}`);
 
       if (response.status === 200) {
         setUsers({
@@ -134,7 +136,7 @@ const UserPage = () => {
     }
   };
 
-  if (user.role !== "ADMIN") {
+  if (!["SUPERADMIN", "ADMIN"].includes(user?.role)) {
     return (
       <Layout>
         <Unauthorize />
@@ -146,10 +148,24 @@ const UserPage = () => {
     <Layout>
       <div className="bg-white border border-gray-100">
         <div className="h-18 w-full bg-white px-6 pt-5 border-b border-gray-100">
-          <h1 className="text-2xl font-medium">ผู้ใช้งาน</h1>
+          <h1 className="text-2xl font-medium">ผู้ใช้งาน </h1>
         </div>
-        <div className="w-1/3 p-4">
-          <TextField className="w-1/3" placeholder="ค้นหา..." onChange={(e) => setKeyword(e.target.value)} />
+        <div className="grid grid-cols-12 py-4 px-4">
+          <div className="col-span-4">
+            <TextField className="w-1/3" placeholder="ค้นหา..." onChange={(e) => setKeyword(e.target.value)} />
+          </div>
+          <div className="col-span-8">
+            <div className="text-right">
+              <Link href="/users/create">
+                <Button className="uppercase">
+                  <div className="flex">
+                    <span className="mr-2">Create</span>
+                    <FiPlus className="mt-1" />
+                  </div>
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
         <table style={{ width: "100%", minWidth: "700px" }} className="bg-white">
           <thead className="w-full h-14 bg-primary text-white">
@@ -158,6 +174,7 @@ const UserPage = () => {
               <th className="text-left">ชื่อผู้ใข้งาน</th>
               <th className="text-left">เบอร์โทรศัพท์</th>
               <th className="text-left">เครดิต</th>
+              <th className="text-left">ประเภทผู้ใช้</th>
               <th className="w-[100px] text-center">สถานะ</th>
               <th className=" text-center">สร้างเมื่อ</th>
               <th className=" text-center">แก้ไขล่าสุด</th>
@@ -172,6 +189,7 @@ const UserPage = () => {
                   <td className="text-left">{user.username}</td>
                   <td className="text-left">{user.phone}</td>
                   <td className="text-left">{user.credit}</td>
+                  <td className="text-left">{user.role}</td>
                   <td className="text-left">{generateStatus(user.status)}</td>
                   <td className="text-center">{dayjs(user.createdAt).format("DD-MM-YYYY HH:mm:ss")}</td>
                   <td className="text-center">{dayjs(user.updatedAt).format("DD-MM-YYYY HH:mm:ss")}</td>
@@ -193,7 +211,7 @@ const UserPage = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={8} className="text-center">
+                <td colSpan={8} className="text-center py-4">
                   ไม่มีข้อมูล
                 </td>
               </tr>

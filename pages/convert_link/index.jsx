@@ -45,7 +45,7 @@ const DailyProduct = () => {
     <Layout>
       <div className="w-full min-h-24 bg-white p-4 rounded">
         <h2 className="text-3xl mb-4">Shorten Links</h2>
-        <label for="longLinks">Enter Long Links:</label>
+        <label htmlFor="longLinks">Enter Long Links:</label>
         <textarea
           id="longLinks"
           placeholder="Enter long links here (one per line, up to 1000 links)"
