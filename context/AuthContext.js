@@ -15,14 +15,14 @@ export const AuthProvider = ({ children }) => {
         username: params.username,
         password: params.password,
       };
-      const res = await axios.post("http://localhost:3000/api/users/login", payload);
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, payload);
 
       if (res.status === 200) {
         const { token } = await res.data;
         localStorage.setItem("token", token);
         router.push("/dashboard");
       } else {
-        Alert.error("Error 111");
+        Alert.error("Error");
       }
     } catch (error) {
       let response = error.response;
