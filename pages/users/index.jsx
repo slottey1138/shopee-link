@@ -146,10 +146,10 @@ const UserPage = () => {
     <Layout>
       <div className="bg-white border border-gray-100">
         <div className="h-18 w-full bg-white px-6 pt-5 border-b border-gray-100">
-          <h1 className="text-2xl font-medium">ผู้ใข้งาน</h1>
+          <h1 className="text-2xl font-medium">ผู้ใช้งาน</h1>
         </div>
         <div className="w-1/3 p-4">
-          <TextField className="w-1/3" placeholder="Search..." onChange={(e) => setKeyword(e.target.value)} />
+          <TextField className="w-1/3" placeholder="ค้นหา..." onChange={(e) => setKeyword(e.target.value)} />
         </div>
         <table style={{ width: "100%", minWidth: "700px" }} className="bg-white">
           <thead className="w-full h-14 bg-primary text-white">
